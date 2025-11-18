@@ -82,8 +82,10 @@ int main(int argc, char **argv)
   double radius = diameter / 2.0;
 
   std::ofstream outText(output_file);
-  outText << center_x << " " << center_y << " " << radius;
+  outText << static_cast<int>(center_x) << " " << static_cast<int>(center_y) << " " << radius;
   outText.close();
+  image.SetPixel(center_x, center_y, 0);
+  WriteImage("sample.pgm", image); // For testing 
 
   std::cout << "Running s1 " << input_file << " " << threshold << " " << output_file << std::endl;
   return 0;
