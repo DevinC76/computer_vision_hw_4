@@ -62,8 +62,8 @@ int main(int argc, char **argv)
       int label = image.GetPixel(i, j);
       if (label != 0)
       {
-        objects.x += i;
-        objects.y += j;
+        objects.x += j; // column
+        objects.y += i; // row
         objects.area += 1;
         min_y = std::min(min_y, i);
         min_x = std::min(min_x, j);
@@ -82,10 +82,9 @@ int main(int argc, char **argv)
   double radius = diameter / 2.0;
 
   std::ofstream outText(output_file);
-  outText << static_cast<int>(center_x) << " " << static_cast<int>(center_y) << " " << radius;
+  outText << (int)center_x << " " << (int)center_y << " " << radius << "\n";
   outText.close();
-  image.SetPixel(center_x, center_y, 0);
-  WriteImage("sample.pgm", image); // For testing 
+  image.SetPixel((int)center_y, (int)center_x, 0);
 
   std::cout << "Running s1 " << input_file << " " << threshold << " " << output_file << std::endl;
   return 0;
